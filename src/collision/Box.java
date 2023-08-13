@@ -1,3 +1,5 @@
+package collision;
+
 import javafx.scene.shape.Rectangle;
 /**
  * 

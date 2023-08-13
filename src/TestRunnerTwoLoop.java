@@ -3,6 +3,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import collision.Box;
+import collision.Collidable;
+import collision.Collider;
+import collision.ColliderMap;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;

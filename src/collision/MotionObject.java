@@ -1,3 +1,5 @@
+package collision;
+
 /**
  * 
  * @author Raymond Klarr

@@ -1,6 +1,10 @@
 import java.util.Arrays;
 import java.util.Set;
 
+import collision.Box;
+import collision.Collidable;
+import collision.Collider;
+import collision.ColliderMap;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;

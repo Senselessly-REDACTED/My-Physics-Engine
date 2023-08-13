@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import collision.Box;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -60,7 +61,7 @@ public class Runner extends Application
 /*
 		while(true)
 		{
-		    for(Box n : boxes)
+		    for(collision.Box n : boxes)
 		    {
 		    	n.getRectangle().relocate(n.getPosX() + n.getVelX(), n.getPosY() + n.getVelY());
 		    	try {

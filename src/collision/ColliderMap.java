@@ -1,3 +1,5 @@
+package collision;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -21,9 +23,9 @@ public class ColliderMap
 	}
 	
 	/**
-	 * Adds a collider to the ColliderMap
+	 * Adds a collider to the collision.ColliderMap
 	 * each key represents x values counted by 100s. i.e. 0: 0-99, 1: 100-199, ..., n: (n*100)-(n*100+99)
-	 * A collider that has been assigned an ID is assumed to already belong to a Collider Map and will not be added.
+	 * A collider that has been assigned an ID is assumed to already belong to a collision.Collider Map and will not be added.
 	 * @param col collider to be added.
 	 * @return true if add was successful, false otherwise
 	 */
@@ -65,8 +67,8 @@ public class ColliderMap
 	}
 	
 	/**
-	 * Check a certain Collider for collisions in its area
-	 * @param col - Collider to check
+	 * Check a certain collision.Collider for collisions in its area
+	 * @param col - collision.Collider to check
 	 * @return ArrayList of Colliders that col is collided with
 	 */
 	public Set<Collider> checkColliders(Collider col)
