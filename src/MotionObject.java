@@ -34,16 +34,11 @@ public abstract class MotionObject
 		if(this.getPosX() - obj.getPosX() == 0 && this.getPosY() - obj.getPosY() == 0) //Check if the object is on the same coordinate
 			return true;
 		
-		
-//		int diffX = Math.abs(Math.min(this.getPosX(), obj.getPosX()) - Math.max(this.getPosX(), obj.getPosX()));
-//		int diffY = Math.abs(Math.min(this.getPosY(), obj.getPosY()) - Math.max(this.getPosY(), obj.getPosY()));
+
 		
 		if(Math.abs(this.getPosX() - obj.getPosX()) < obj.width) // is obj positioned to the left of this object?
 		{
-			if(Math.abs(this.getPosY() - obj.getPosY()) < obj.height)
-				return true;
-			else
-				return false;
+            return Math.abs(this.getPosY() - obj.getPosY()) < obj.height;
 		}
 		else
 		{

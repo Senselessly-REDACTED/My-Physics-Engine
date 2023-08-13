@@ -12,12 +12,12 @@ import java.util.TreeSet;
 
 public class ColliderMap
 {
-	private Map<Integer, ArrayList<Collider>> colliderReference;
+	private final Map<Integer, ArrayList<Collider>> colliderReference;
 	private static int roster = 0;
 	
 	public ColliderMap()
 	{
-		colliderReference = new TreeMap<Integer, ArrayList<Collider>>();
+		colliderReference = new TreeMap<>();
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class ColliderMap
 			else
 			{
 				col.setColliderID(roster);
-				ArrayList<Collider> temp = new ArrayList<Collider>();
+				ArrayList<Collider> temp = new ArrayList<>();
 				temp.add(col);
 				colliderReference.put(n, temp);
 			}
@@ -71,21 +71,17 @@ public class ColliderMap
 	 */
 	public Set<Collider> checkColliders(Collider col)
 	{
-		Set<Collider> ret = new TreeSet<Collider>();
+		Set<Collider> ret = new TreeSet<>();
 		int nStart = col.getColliderX()/100;
 		int nEnd = (col.getColliderX() + col.getColliderWidth())/100;
-		
-//		System.out.print(nStart + ", " + nEnd + "\t");
+
 		for(int n = nStart; n <= nEnd; n++)
 		{
-//			System.out.print("\nIterate; ");
-//			System.out.print(colliderReference.containsKey(n) + "\t");
+
 			if(colliderReference.containsKey(n)) 
 			{
 				for(Collider z : colliderReference.get(n))
 				{
-//					System.out.print(((z.getColliderX() < col.getColliderX() && col.getColliderX() < (z.getColliderX() + z.getColliderWidth()) || (z.getColliderX() < col.getColliderX() + col.getColliderWidth() && (col.getColliderX() + col.getColliderWidth()) < (z.getColliderX() + z.getColliderWidth()))|| (z.getColliderX() < col.getColliderX() && (z.getColliderX() + z.getColliderWidth()) < (col.getColliderX() + col.getColliderWidth()))) + "\t");
-//					if(Math.abs(col.getColliderX() - z.getColliderX()) < z.getColliderWidth())
 					int x0 = z.getColliderX();
 					int x1 = col.getColliderX();
 					int a = z.getColliderWidth();
@@ -125,13 +121,11 @@ public class ColliderMap
 	
 	public String toString()
 	{
-		String ret = "";
+		StringBuilder ret = new StringBuilder();
 		Set<Integer> s = colliderReference.keySet();
 		
 		for(Integer x : s)
-		{
-			ret += x + ": " + colliderReference.get(x) + ", ";
-		}
+            ret.append(x).append(": ").append(colliderReference.get(x)).append(", ");
 		
 		return ret.substring(0, ret.length()-2);
 	}

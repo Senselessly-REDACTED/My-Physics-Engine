@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Scanner;
 import java.util.Set;
 
 import javafx.application.Application;
@@ -15,28 +14,11 @@ public class TestRunnerOneCollider extends Application
 	public static void main(String[] args) 
 	{
 		launch(args);
-		
-//		Collider x = new Collider(50,100,100,100);
-//		Collider y = new Collider(100,100,199,100);
-//		ColliderMap cM = new ColliderMap();
-//		cM.addCollider(x);
-//		cM.addCollider(y);
-//		
-//		System.out.println(cM);
-//		
-//		System.out.println(cM.checkColliders(y));
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception
+	public void start(Stage primaryStage)
 	{
-//		primaryStage.setResizable(false);
-//		Rectangle2D bounds = Screen.getPrimary().getBounds();
-//		primaryStage.setWidth(bounds.getWidth());
-//		primaryStage.setHeight(bounds.getHeight());
-		
-//		primaryStage.setFullScreen(true);
-		
 		//Create Boxes
 		ColliderMap terrainColliderMap = new ColliderMap();
 		Box player = new Box(50, 50, 40, 190);
@@ -67,8 +49,8 @@ public class TestRunnerOneCollider extends Application
 		
 		int[] adj = correct(player, collisions);
 		System.out.println("\n\n" + Arrays.toString(adj));
-		
-		EventHandler<MouseEvent> eH = new EventHandler<MouseEvent>()
+
+		var eH = new EventHandler<MouseEvent>()
 		{
 			@Override
 			public void handle(MouseEvent arg0)
@@ -77,6 +59,7 @@ public class TestRunnerOneCollider extends Application
 //				System.out.println(arg0.isPrimaryButtonDown());
 				player.shift(correct(player, terrainColliderMap.checkColliders(player.getCollider())));
 				System.out.println(terrainColliderMap.checkColliders(player.getCollider()) + "\t" + player);
+				player.reRender();
 			}
 		};
 	    
@@ -108,9 +91,7 @@ public class TestRunnerOneCollider extends Application
 			int distanceDownEdge = n.getColliderHeight() - (distanceUpEdge + col.getColliderHeight());
 			int shortestY = Math.min(distanceUpEdge, distanceDownEdge);
 			int shortestX = Math.min(distanceRightEdge, distanceLeftEdge);
-			
-//			System.out.println("D: " + distanceDownEdge + ", L:" + distanceLeftEdge + ", R:" + distanceRightEdge + ", U:" + distanceUpEdge);
-//			System.out.println("sX:" + shortestX + ", sY: " + shortestY);
+
 			
 			if(shortestY <= shortestX)
 			{
@@ -136,9 +117,8 @@ public class TestRunnerOneCollider extends Application
 				}
 			}
 		}
-		
-		int[] ret = {adjX, adjY};
-		return ret;
+
+        return new int[]{adjX, adjY};
 	}
 	
 	public int[] correct(Collidable col, Set<Collider> colSet)

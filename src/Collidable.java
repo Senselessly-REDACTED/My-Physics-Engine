@@ -7,7 +7,7 @@
 
 public interface Collidable 
 {	
-	public boolean isCollided(MotionObject obj); //Pending removal.
+	boolean isCollided(MotionObject obj); //Pending removal.
 	
-	public Collider getCollider(); //Every collidable object must possess a collider
+	Collider getCollider(); //Every collidable object must possess a collider
 }

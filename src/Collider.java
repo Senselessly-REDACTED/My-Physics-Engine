@@ -12,10 +12,6 @@ public class Collider implements Comparable<Collider>
 
 	public Collider()
 	{
-		colliderWidth = 0;
-		colliderHeight = 0;
-		colliderX = 0;
-		colliderY = 0;
 		colliderID = -1;
 	}
 
@@ -54,16 +50,6 @@ public class Collider implements Comparable<Collider>
 	{
 		return colliderID;
 	}
-	
-	public void setColliderWidth(int colliderWidth)
-	{
-		this.colliderWidth = colliderWidth;
-	}
-
-	public void setColliderHeight(int colliderHeight)
-	{
-		this.colliderHeight = colliderHeight;
-	}
 
 	public void setColliderX(int colliderX)
 	{
@@ -79,14 +65,8 @@ public class Collider implements Comparable<Collider>
 	{
 		this.colliderID = colliderID;
 	}
-	
-	@Override
-	public boolean equals(Object o)
-	{
-		Collider c = (Collider)o;
-		return this.colliderID == c.getColliderID();
-	}
-	
+
+
 	public String toString()
 	{
 		return "[w:" + this.colliderWidth + ", h:" + this.colliderHeight + ", x:" + this.colliderX + ", y:" + this.colliderY + ", id:" + this.colliderID + "]";

@@ -22,6 +22,7 @@ public class Box extends MotionObject implements Collidable
 	{
 		super(width, height);
 		rec = new Rectangle(0,0 ,width, height);
+		boxCollider = new Collider(width, height, 0, 0);
 	}
 	
 	public void update()

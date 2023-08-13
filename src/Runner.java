@@ -14,15 +14,8 @@ import javafx.stage.Stage;
 
 public class Runner extends Application
 {
-//	public static void main(String[] args) 
-//	{
-////		Box b1 = new Box(2,2,13,0);
-////		Box b2 = new Box(2,2,13,1);
-////		
-////		System.out.println(b1.isCollided(b2));
-//	}
-	
-	private static List<Box> boxes = new ArrayList<Box>();
+
+    private static final List<Box> boxes = new ArrayList<>();
 	
 	public static void main(String[] args)
 	{
@@ -30,12 +23,14 @@ public class Runner extends Application
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception 
+	public void start(Stage primaryStage)
 	{
 		primaryStage.setTitle("Hi");
 		Box b1 = new Box(50,50,89, 0);
 		Box floor = new Box(50,50);
+
 		b1.setVelY(5);
+
 		floor.getRectangle().setFill(Color.BLUE);
 		floor.getRectangle().setOpacity(.7);
 		b1.getRectangle().setOpacity(.7);
@@ -52,17 +47,8 @@ public class Runner extends Application
 	    //Creating a scene object 
 	    Scene scene = new Scene(root, 600, 300);  
 		
-	    EventHandler<MouseEvent> eH = new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent arg0)
-			{
-				// TODO Auto-generated method stub
-//				System.out.println(arg0.isPrimaryButtonDown());
-				update();
-			}
-		};
-	    
+	    EventHandler<MouseEvent> eH = arg0 -> update();
+
 	    root.addEventFilter(MouseEvent.MOUSE_CLICKED, eH);
 	    
 		primaryStage.setScene(scene);
@@ -71,23 +57,25 @@ public class Runner extends Application
 		primaryStage.show();
 		
 		
-//		while(true)
-//		{
-//		    for(Box n : boxes)
-//		    {
-//		    	n.getRectangle().relocate(n.getPosX() + n.getVelX(), n.getPosY() + n.getVelY());
-//		    	try {
-//		    	Thread.sleep(5);
-//		    	}
-//		    	catch(Exception e)
-//		    	{
-//		    		return;
-//		    	}
-//		    	System.out.println("d");
-//		    }
-			
-		
-	}
+/*
+		while(true)
+		{
+		    for(Box n : boxes)
+		    {
+		    	n.getRectangle().relocate(n.getPosX() + n.getVelX(), n.getPosY() + n.getVelY());
+		    	try {
+		    	Thread.sleep(5);
+		    	}
+		    	catch(Exception e)
+		    	{
+		    		return;
+		    	}
+		    	System.out.println("d");
+		    }
+*/
+
+
+    }
 	
 	public static void update()
 	{
@@ -95,6 +83,7 @@ public class Runner extends Application
 		    {
 			 System.out.println(n);
 		    	n.update();
+				n.reRender();
 		    }
 		 System.out.println(boxes.get(0).isCollided(boxes.get(1)));
 	}
