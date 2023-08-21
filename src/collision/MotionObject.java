@@ -89,11 +89,18 @@ public abstract class MotionObject
 	public int getHeight() {
 		return height;
 	}
-	
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	//Overridden Methods
 	@Override
 	public String toString()
 	{
-		return "(" +posX + ", " + posY + ")";
+		return "(X: " + posX + ", Y: " + posY + ", W: " + width + ", H: " + height + ")";
 	}
-	
 }

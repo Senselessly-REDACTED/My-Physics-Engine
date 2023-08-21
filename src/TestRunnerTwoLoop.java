@@ -29,8 +29,8 @@ public class TestRunnerTwoLoop extends Application
 		ColliderMap terrainColliderMap = new ColliderMap();
 
 		Box player = new Box(50, 50, 300, 100);
-		Box wall = new Box(25,300,50,0);
-		Box wall2 = new Box(25,300,500,0);
+		Box wall = new Box(25, 200,50,0);
+		Box wall2 = new Box(25,200,500,0);
 		Box floor = new Box(600,25,0,0);
 
 		terrainColliderMap.addCollider(wall2);
@@ -113,20 +113,30 @@ public class TestRunnerTwoLoop extends Application
 				}
             }
 		});
-		
-		AnimationTimer x = new AnimationTimer()
+
+		sce.heightProperty().addListener((observableValue, number, t1) -> {
+			wall.setHeight(t1.intValue());
+			wall2.setHeight(t1.intValue());
+			wall.reRender();
+			wall2.reRender();
+//			System.out.println("cringe: " + wall + "\t t1: " + t1.intValue());
+        });
+
+
+        AnimationTimer x = new AnimationTimer()
 		{
 			@Override
 			public void handle(long arg0)
 			{
 				player.update();
 				Set<Collider> colSet = terrainColliderMap.checkColliders(player);
-				System.out.println(player + "\t" + colSet);
+//				System.out.println(player + "\t" + colSet);
+				player.resize(player.getWidth() + 1, player.getHeight() + 1);
+				System.out.println(player);
 				player.shift(correct(player, colSet));
 				player.reRender();
 			}
 		};
-		
 		x.start();
 		
 		primaryStage.show();
@@ -160,7 +170,6 @@ public class TestRunnerTwoLoop extends Application
 			{
 				if(distanceRightEdge <= distanceLeftEdge)
 				{
-//					System.out.println("ping");
 					adjX += (distanceRightEdge + col.getColliderWidth());
 				}
 				else

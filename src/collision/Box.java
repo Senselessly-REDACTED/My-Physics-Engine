@@ -10,8 +10,8 @@ import javafx.scene.shape.Rectangle;
 
 public class Box extends MotionObject implements Collidable
 {
-	private Rectangle rec;
-	private Collider boxCollider;
+	private final Rectangle rec;
+	private final Collider boxCollider;
 	
 	public Box(int width, int height, int startX, int startY) {
 		super(width, height, startX, startY);
@@ -49,10 +49,21 @@ public class Box extends MotionObject implements Collidable
 		
 //		rec.relocate(xShifted, yShifted);
 	}
-	
+
+	public void resize(int w, int h)
+	{
+		this.setWidth(w);
+		this.setHeight(h);
+		rec.resize(w, h);
+	}
+
 	public void reRender()
 	{
-		this.getRectangle().relocate(this.getPosX(), this.getPosY());
+		if(this.getHeight() != rec.getHeight())
+			rec.resize(this.getWidth(), this.getHeight());
+
+		if(this.getPosX() != rec.getX() || this.getPosY() != rec.getY())
+			this.getRectangle().relocate(this.getPosX(), this.getPosY());
 	}
 	
 	public Collider getCollider()
