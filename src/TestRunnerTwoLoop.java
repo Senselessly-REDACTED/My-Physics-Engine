@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 public class TestRunnerTwoLoop extends Application
 {
+	public final int VEL = 1;
 	public static void main(String[] args)
 	{
 		launch(args);
@@ -60,25 +61,25 @@ public class TestRunnerTwoLoop extends Application
             switch (key.getCode().getChar()) {
                 case ("W") -> {
 					if(!keys.get("W")) {
-						player.setVelY(player.getVelY() - 1);
+						player.setVelY(player.getVelY() - VEL);
 						keys.replace("W", true);
 					}
                 }
                 case ("A") -> {
 					if(!keys.get("A")) {
-						player.setVelX(player.getVelX() - 1);
+						player.setVelX(player.getVelX() - VEL);
 						keys.replace("A", true);
 					}
                 }
                 case ("S") -> {
 					if(!keys.get("S")) {
-						player.setVelY(player.getVelY() + 1);
+						player.setVelY(player.getVelY() + VEL);
 						keys.replace("S", true);
 					}
                 }
                 case ("D") -> {
 					if(!keys.get("D")) {
-						player.setVelX(player.getVelX() + 1);
+						player.setVelX(player.getVelX() + VEL);
 						keys.replace("D", true);
 					}
                 }
@@ -89,25 +90,25 @@ public class TestRunnerTwoLoop extends Application
             switch (key.getCode().getChar()) {
 				case ("W") -> {
 					if(keys.get("W")) {
-						player.setVelY(player.getVelY() + 1);
+						player.setVelY(player.getVelY() + VEL);
 						keys.replace("W", false);
 					}
 				}
 				case ("A") -> {
 					if(keys.get("A")) {
-						player.setVelX(player.getVelX() + 1);
+						player.setVelX(player.getVelX() + VEL);
 						keys.replace("A", false);
 					}
 				}
 				case ("S") -> {
 					if(keys.get("S")) {
-						player.setVelY(player.getVelY() - 1);
+						player.setVelY(player.getVelY() - VEL);
 						keys.replace("S", false);
 					}
 				}
 				case ("D") -> {
 					if(keys.get("D")) {
-						player.setVelX(player.getVelX() - 1);
+						player.setVelX(player.getVelX() - VEL);
 						keys.replace("D", false);
 					}
 				}
