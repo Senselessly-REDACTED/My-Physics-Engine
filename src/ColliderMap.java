@@ -1,3 +1,4 @@
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -27,14 +28,14 @@ public class ColliderMap
 	 * @param col collider to be added.
 	 * @return true if add was successful, false otherwise
 	 */
-	public boolean addCollider(Collider col)
+	public boolean addCollider(Collider col, boolean force)
 	{
-		if(col.getColliderID() != -1)
+		if(!force && col.getColliderID() != -1)
 			return false;
-		
+
 		int nS = col.getColliderX()/100;
 		int nE = (col.getColliderX() + col.getColliderWidth())/100;
-		
+
 		for(int n = nS; n <= nE; n++) 
 		{
 			if(colliderReference.containsKey(n))
@@ -53,7 +54,12 @@ public class ColliderMap
 		roster++;
 		return true;
 	}
-	
+
+	public boolean addCollider(Collider col)
+	{
+		return addCollider(col, false);
+	}
+
 	/**
 	 * Overload of the addCollider method, QOL method that lets you directly pass an object with a collider.
 	 * @param col collidable object
@@ -63,14 +69,59 @@ public class ColliderMap
 	{
 		return addCollider(col.getCollider());
 	}
-	
+
 	/**
+	 * Function removes a collider from the map by ID, this function has a horrible time complexity, will fix in the future
+	 * for now use only as needed.
+	 * O(n^3) : iterate all elements in the map O(n^2) use remove to remove from arraylist O(n); O(n^2) * O(n) = O(n^3)
+	 * @param colliderId collider for removal
+	 * @return reference to the removed collider
+	 */
+	public Collider removeCollider(int colliderId)
+	{
+		Integer[] temp = find(colliderId);
+		if(temp == null)
+			return null;
+
+		return colliderReference.get(temp[0]).remove(temp[1].intValue());
+	}
+
+	/**
+	 * find is a helper method which looks for a collider in the map
+	 * @param colliderId the ID of the collider to find
+	 * @return	a two element array of "coordinates" of the collider in the map, returns null if the element does not exist.
+	 */
+	private Integer[] find(int colliderId)
+	{
+		Integer[] ret = new Integer[2];
+
+		Set<Integer> keys = colliderReference.keySet();
+		for(Integer x : keys)
+		{
+			for(int i = 0; i < colliderReference.get(x).size(); i++)
+			{
+				ArrayList<Collider> comp = colliderReference.get(x);
+				if(comp.get(i).getColliderID() == colliderId) {
+					ret[0] = x;
+					ret[1] = i;
+					return ret;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * PRECONDITION: the collider MUST exist within the map
 	 * Check a certain Collider for collisions in its area
 	 * @param col - Collider to check
-	 * @return ArrayList of Colliders that col is collided with
+	 * @return ArrayList of Colliders that col is collided with, null if the collider is not an element of the map.
 	 */
 	public Set<Collider> checkColliders(Collider col)
 	{
+		if(find(col.getColliderID()) == null)
+			return null;
+
 		Set<Collider> ret = new TreeSet<>();
 		int nStart = col.getColliderX()/100;
 		int nEnd = (col.getColliderX() + col.getColliderWidth())/100;

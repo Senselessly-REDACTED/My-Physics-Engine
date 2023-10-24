@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -21,6 +18,8 @@ public class TestRunnerTwoLoop extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
+		Group root = new Group();
+
 		//Create Boxes
 		ColliderMap terrainColliderMap = new ColliderMap();
 
@@ -28,7 +27,21 @@ public class TestRunnerTwoLoop extends Application
 		Box wall = new Box(25,300,50,0);
 		Box wall2 = new Box(25,300,500,0);
 		Box floor = new Box(600,25,0,0);
+		Box wall3 = new Box(25,25,225,75);
+		Box wall4 = new Box(25,25,250,100);
 
+		root.getChildren().addAll(wall3.getRectangle(), wall4.getRectangle());
+
+//		for(int i = 0; i < 100; i++)
+//		{
+//			Box bp = new Box((int)(10*Math.random() + 20), (int)(10*Math.random() + 20), (int)(700*Math.random()), (int)(700*Math.random()));
+//			root.getChildren().add(bp.getRectangle());
+//			terrainColliderMap.addCollider(bp);
+//		}
+
+
+		terrainColliderMap.addCollider(wall3);
+		terrainColliderMap.addCollider(wall4);
 		terrainColliderMap.addCollider(wall2);
 		terrainColliderMap.addCollider(floor);
 		terrainColliderMap.addCollider(wall);
@@ -41,43 +54,48 @@ public class TestRunnerTwoLoop extends Application
 		player.getRectangle().setOpacity(.7);
 		
 		
-		
-		Group root = new Group();
+
 		root.getChildren().addAll(player.getRectangle(), wall.getRectangle(), floor.getRectangle(), wall2.getRectangle()); //floor.getRectangle()
 		Scene sce = new Scene(root);
 		primaryStage.setScene(sce);
 
 		Map<String, Boolean> keys = new TreeMap<>();
-        for (String s : Arrays.asList("W", "A", "S", "D")) {
+        for (String s : Arrays.asList("W", "A", "S", "D", "F")) {
             keys.put(s, false);
         }
 
         sce.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            switch (key.getCode().getChar()) {
-                case ("W") -> {
-					if(!keys.get("W")) {
-						player.setVelY(player.getVelY() - 1);
-						keys.replace("W", true);
+							switch (key.getCode().getChar()) {
+								case ("W") -> {
+									if(!keys.get("W")) {
+										player.setVelY(player.getVelY() - 1);
+										keys.replace("W", true);
+									}
+								}
+								case ("A") -> {
+									if(!keys.get("A")) {
+										player.setVelX(player.getVelX() - 1);
+										keys.replace("A", true);
+									}
+								}
+								case ("S") -> {
+									if(!keys.get("S")) {
+										player.setVelY(player.getVelY() + 1);
+										keys.replace("S", true);
+									}
+								}
+								case ("D") -> {
+									if(!keys.get("D")) {
+										player.setVelX(player.getVelX() + 1);
+										keys.replace("D", true);
+									}
+								}
+								case ("F") -> {
+									if(!keys.get("F")) {
+										System.out.println(terrainColliderMap.removeCollider(player.getCollider().getColliderID()));
+						keys.replace("F", true);
 					}
-                }
-                case ("A") -> {
-					if(!keys.get("A")) {
-						player.setVelX(player.getVelX() - 1);
-						keys.replace("A", true);
-					}
-                }
-                case ("S") -> {
-					if(!keys.get("S")) {
-						player.setVelY(player.getVelY() + 1);
-						keys.replace("S", true);
-					}
-                }
-                case ("D") -> {
-					if(!keys.get("D")) {
-						player.setVelX(player.getVelX() + 1);
-						keys.replace("D", true);
-					}
-                }
+				}
             }
 		});
 
@@ -107,6 +125,13 @@ public class TestRunnerTwoLoop extends Application
 						keys.replace("D", false);
 					}
 				}
+				case ("F") -> {
+					if(keys.get("F")) {
+						System.out.println(player.getCollider().getColliderID());
+						terrainColliderMap.addCollider(player.getCollider(), true);
+						keys.replace("F", false);
+					}
+				}
             }
 		});
 		
@@ -117,8 +142,9 @@ public class TestRunnerTwoLoop extends Application
 			{
 				player.update();
 				Set<Collider> colSet = terrainColliderMap.checkColliders(player);
-				System.out.println(player + "\t" + colSet);
-				player.shift(correct(player, colSet));
+				//System.out.println(player + "\t" + colSet);
+				if(colSet != null)
+					player.shift(correct(player, colSet));
 				player.reRender();
 			}
 		};
