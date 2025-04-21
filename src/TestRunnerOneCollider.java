@@ -30,6 +30,7 @@ public class TestRunnerOneCollider extends Application
 		Box floor = new Box(600,25,0,200);
 		terrainColliderMap.addCollider(floor);
 		terrainColliderMap.addCollider(wall);
+		terrainColliderMap.addCollider(player);
 		
 		//Style Boxes
 		wall.getRectangle().setOpacity(.7);
@@ -86,7 +87,11 @@ public class TestRunnerOneCollider extends Application
 	public int[] correct(Collider col, Set<Collider> colSet)
 	{
 		int adjX = 0; int adjY = 0;
-		
+
+		if(colSet == null){
+			return new int[] {0,0};
+		}
+
 		for(Collider n : colSet)
 		{
 			int distanceLeftEdge = col.getColliderX() - n.getColliderX();

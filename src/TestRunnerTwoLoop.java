@@ -1,5 +1,7 @@
 import java.util.*;
 
+import collision.*;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
