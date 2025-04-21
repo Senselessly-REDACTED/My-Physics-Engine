@@ -32,12 +32,12 @@ public class TestRunnerTwoLoop extends Application
 
 		root.getChildren().addAll(wall3.getRectangle(), wall4.getRectangle());
 
-//		for(int i = 0; i < 100; i++)
-//		{
-//			Box bp = new Box((int)(10*Math.random() + 20), (int)(10*Math.random() + 20), (int)(700*Math.random()), (int)(700*Math.random()));
-//			root.getChildren().add(bp.getRectangle());
-//			terrainColliderMap.addCollider(bp);
-//		}
+		for(int i = 0; i < 100; i++)
+		{
+			Box bp = new Box((int)(10*Math.random() + 20), (int)(10*Math.random() + 20), (int)(700*Math.random()), (int)(700*Math.random()));
+			root.getChildren().add(bp.getRectangle());
+			terrainColliderMap.addCollider(bp);
+		}
 
 
 		terrainColliderMap.addCollider(wall3);
